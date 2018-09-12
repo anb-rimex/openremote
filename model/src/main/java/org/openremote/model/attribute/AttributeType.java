@@ -56,176 +56,182 @@ public enum AttributeType {
     RULES_TEMPLATE_FILTER("filter", ValueType.ARRAY, value -> Optional.empty()),
 
     PERCENTAGE("percent", ValueType.NUMBER,
-        value -> Values.getNumber(value)
-            .filter(number -> number < 0 || number > 100)
-            .map(number -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_PERCENTAGE_OUT_OF_RANGE)),
-        new MetaItem(AssetMeta.RANGE_MIN, Values.create(0)),
-        new MetaItem(AssetMeta.RANGE_MAX, Values.create(100)),
-        new MetaItem(AssetMeta.FORMAT, Values.create("%3d %%"))
+            value -> Values.getNumber(value)
+                    .filter(number -> number < 0 || number > 100)
+                    .map(number -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_PERCENTAGE_OUT_OF_RANGE)),
+            new MetaItem(AssetMeta.RANGE_MIN, Values.create(0)),
+            new MetaItem(AssetMeta.RANGE_MAX, Values.create(100)),
+            new MetaItem(AssetMeta.FORMAT, Values.create("%3d %%"))
     ),
 
     TIMESTAMP_MILLIS("clock-o", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%d ms"))
+            new MetaItem(FORMAT, Values.create("%d ms"))
     ),
 
     TIMESTAMP_SECONDS("clock-o", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%d s"))
+            new MetaItem(FORMAT, Values.create("%d s"))
     ),
 
     TIME_SECONDS("clock-o", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.1f s"))
+            new MetaItem(FORMAT, Values.create("%0.1f s"))
     ),
 
     TIME_MINUTES("clock-o", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.1f min"))
+            new MetaItem(FORMAT, Values.create("%0.1f min"))
     ),
 
     DATETIME("calendar", ValueType.STRING, value -> Optional.empty()),
 
     COLOR_RGB("paint-brush", ValueType.ARRAY, value -> Values.getArray(value)
-        .filter(array -> array.length() != 3)
-        .map(array -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_INVALID_COLOR_FORMAT))
+            .filter(array -> array.length() != 3)
+            .map(array -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_INVALID_COLOR_FORMAT))
     ),
 
     COLOR_ARGB("paint-brush", ValueType.ARRAY, value -> Values.getArray(value)
-        .filter(array -> array.length() != 4)
-        .map(array -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_INVALID_COLOR_FORMAT))
+            .filter(array -> array.length() != 4)
+            .map(array -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_INVALID_COLOR_FORMAT))
     ),
 
     COLOR_HEX("paint-brush", ValueType.STRING, value -> Values.getString(value)
-        .filter(s -> !s.matches("[a-fA-F0-9]{6}"))
-        .map(array -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_INVALID_COLOR_FORMAT))
+            .filter(s -> !s.matches("[a-fA-F0-9]{6}"))
+            .map(array -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_INVALID_COLOR_FORMAT))
     ),
 
     TEMPERATURE_CELCIUS("thermometer", ValueType.NUMBER, value -> Values.getNumber(value)
-        .filter(n -> n < -273.15)
-        .map(n -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_TEMPERATURE_OUT_OF_RANGE)),
+            .filter(n -> n < -273.15)
+            .map(n -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_TEMPERATURE_OUT_OF_RANGE)),
             new MetaItem(FORMAT, Values.create("%0.1f C")
-        )
+            )
     ),
 
     TEMPERATURE_KELVIN("thermometer", ValueType.NUMBER, value -> Values.getNumber(value)
-        .filter(n -> n < 0)
-        .map(n -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_TEMPERATURE_OUT_OF_RANGE))
+            .filter(n -> n < 0)
+            .map(n -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_TEMPERATURE_OUT_OF_RANGE))
     ),
 
     TEMPERATURE_FAHRENHEIT("thermometer", ValueType.NUMBER, value -> Values.getNumber(value)
-        .filter(n -> n < -459.67)
-        .map(n -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_TEMPERATURE_OUT_OF_RANGE))
+            .filter(n -> n < -459.67)
+            .map(n -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_TEMPERATURE_OUT_OF_RANGE))
     ),
 
     RAINFALL("tint", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.1f mm/h"))
+            new MetaItem(FORMAT, Values.create("%0.1f mm/h"))
     ),
 
     BRIGHTNESS_LUX("sun-o", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%d lx"))
+            new MetaItem(FORMAT, Values.create("%d lx"))
     ),
 
     DISTANCE_M("arrows-h", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f m"))
+            new MetaItem(FORMAT, Values.create("%0.5f m"))
     ),
 
     DISTANCE_CM("arrows-h", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f cm"))
+            new MetaItem(FORMAT, Values.create("%0.5f cm"))
     ),
 
     DISTANCE_MM("arrows-h", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f mm"))
+            new MetaItem(FORMAT, Values.create("%0.5f mm"))
     ),
 
     DISTANCE_IN("arrows-h", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f \""))
+            new MetaItem(FORMAT, Values.create("%0.5f \""))
     ),
 
     DISTANCE_FT("arrows-h", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f '"))
+            new MetaItem(FORMAT, Values.create("%0.5f '"))
     ),
 
     DISTANCE_YARD("arrows-h", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f yd"))
+            new MetaItem(FORMAT, Values.create("%0.5f yd"))
     ),
 
     SPEED_MS("rocket", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.3f m/s"))
+            new MetaItem(FORMAT, Values.create("%0.3f m/s"))
     ),
 
     SPEED_KPH("rocket", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.1f km/h"))
+            new MetaItem(FORMAT, Values.create("%0.1f km/h"))
     ),
 
     SPEED_MPH("rocket", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.1f mi/h"))
+            new MetaItem(FORMAT, Values.create("%0.1f mi/h"))
     ),
 
     CO2_PPM("leaf", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%4d ppm"))
+            new MetaItem(FORMAT, Values.create("%4d ppm"))
     ),
 
     HUMIDITY_PERCENTAGE("tint", ValueType.NUMBER, value -> Values.getNumber(value)
-        .filter(number -> number < 0 || number > 100)
-        .map(number -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_PERCENTAGE_OUT_OF_RANGE)),
-        new MetaItem(AssetMeta.RANGE_MIN, Values.create(0)),
-        new MetaItem(AssetMeta.RANGE_MAX, Values.create(100)),
-        new MetaItem(FORMAT, Values.create("%3d %%"))
+            .filter(number -> number < 0 || number > 100)
+            .map(number -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_PERCENTAGE_OUT_OF_RANGE)),
+            new MetaItem(AssetMeta.RANGE_MIN, Values.create(0)),
+            new MetaItem(AssetMeta.RANGE_MAX, Values.create(100)),
+            new MetaItem(FORMAT, Values.create("%3d %%"))
     ),
 
     HUMIDITY_GPCM("tint", ValueType.NUMBER, value -> Optional.empty()),
 
     POWER_WATT("plug", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f W"))
+            new MetaItem(FORMAT, Values.create("%0.5f W"))
     ),
 
     POWER_KILOWATT("plug", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f KW"))),
+            new MetaItem(FORMAT, Values.create("%0.5f KW"))
+    ),
 
     POWER_MEGAWATT("plug", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f MW"))),
+            new MetaItem(FORMAT, Values.create("%0.5f MW"))
+    ),
+
+    POWER_PERCENTAGE("plug", ValueType.NUMBER, value -> Optional.empty(),
+            new MetaItem(FORMAT, Values.create("%3d %%"))
+    ),
 
     CHARGE_PERCENTAGE("battery-full", ValueType.NUMBER, value -> Values.getNumber(value)
-        .filter(number -> number < 0 || number > 100)
-        .map(number -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_PERCENTAGE_OUT_OF_RANGE)),
-        new MetaItem(AssetMeta.RANGE_MIN, Values.create(0)),
-        new MetaItem(AssetMeta.RANGE_MAX, Values.create(100)),
-        new MetaItem(FORMAT, Values.create("%3d %%"))
+            .filter(number -> number < 0 || number > 100)
+            .map(number -> new ValidationFailure(ValueHolder.ValueFailureReason.VALUE_PERCENTAGE_OUT_OF_RANGE)),
+            new MetaItem(AssetMeta.RANGE_MIN, Values.create(0)),
+            new MetaItem(AssetMeta.RANGE_MAX, Values.create(100)),
+            new MetaItem(FORMAT, Values.create("%3d %%"))
     ),
 
     CHARGE_KWH("battery-full", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f KWh"))),
+            new MetaItem(FORMAT, Values.create("%0.5f KWh"))),
 
     ENERGY_KWH("plug", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f KWh"))
+            new MetaItem(FORMAT, Values.create("%0.5f KWh"))
     ),
 
     ENERGY_JOULE("plug", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f J"))
+            new MetaItem(FORMAT, Values.create("%0.5f J"))
     ),
 
     ENERGY_MEGAJOULE("plug", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f MJ"))),
+            new MetaItem(FORMAT, Values.create("%0.5f MJ"))),
 
     FLOW_LPM("tachometer", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f l/m"))
+            new MetaItem(FORMAT, Values.create("%0.5f l/m"))
     ),
 
     FLOW_CMPS("tachometer", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f m³/s"))
+            new MetaItem(FORMAT, Values.create("%0.5f m³/s"))
     ),
 
     FLOW_SCCM("tachometer", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f cm³/m"))
+            new MetaItem(FORMAT, Values.create("%0.5f cm³/m"))
     ),
 
     FLOW_CFPS("tachometer", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f cfs"))
+            new MetaItem(FORMAT, Values.create("%0.5f cfs"))
     ),
 
     FLOW_GPM("tachometer", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.5f gpm"))
+            new MetaItem(FORMAT, Values.create("%0.5f gpm"))
     ),
 
     DIRECTION_DECIMAL_DEGREES("compass", ValueType.NUMBER, value -> Optional.empty(),
-        new MetaItem(FORMAT, Values.create("%0.1f deg"))
+            new MetaItem(FORMAT, Values.create("%0.1f deg"))
     );
 
     public static final String DEFAULT_ICON = "circle-thin";
