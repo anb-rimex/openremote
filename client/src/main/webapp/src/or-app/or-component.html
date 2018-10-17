@@ -169,8 +169,7 @@
             }
 
             formatAttributeValue(formatString, value, defaultLabel) {
-                // TODO remove .replace("Â", "") when backend fix for characters is in place
-                return value ? sprintf(formatString.replace("Â", ""), value) : (defaultLabel ? defaultLabel : "-");
+                return value ? sprintf(formatString, value) : (defaultLabel ? defaultLabel : "-");
             }
 
         }
